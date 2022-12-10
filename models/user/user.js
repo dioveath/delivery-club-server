@@ -2,31 +2,25 @@
 
 var buildMakeUser = function(userValidator, bcrypt){
   return async ({
-    first_name,
-    last_name,
+    name,
     password,    
     email, 
     address,
     postcode,
     phone_number,
-    dob,
-    roles,
-    permissions,
-    profile_link
+    profile_link,
+    orders
   } = {}) => {
 
     var error = userValidator({
-      first_name,
-      last_name,
-      password,      
-      email, 
+      name,
+      password,
+      email,
       address,
       postcode,
       phone_number,
-      dob,
-      roles,
-      permissions,
-      profile_link
+      profile_link,
+      orders
     });
 
     if(error instanceof Object) throw new Error(error.errorList);
@@ -42,17 +36,14 @@ var buildMakeUser = function(userValidator, bcrypt){
     }
 
     return Object.freeze({
-      getFirstName: () => first_name,
-      getLastName: () => last_name,
+      getName: () => name,
       getPassword: () => hashedPassword,
       getEmail: () => email,
-      getPhoneNumber: () => phone_number,      
       getAddress: () => address,
       getPostcode: () => postcode,
-      getDOB: () => dob,
-      getRoles: () => roles,
-      getPermissions: () => permissions,
+      getPhoneNumber: () => phone_number,      
       getProfileLink: () => profile_link,
+      getOrders: () => orders
     });
     
   };
