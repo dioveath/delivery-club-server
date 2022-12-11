@@ -12,5 +12,10 @@ module.exports = {
     ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
     CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
     API_AUDIENCE: process.env.AUTH0_API_AUDIENCE
+  },
+
+  SHIPDAY: {
+    API_KEY: process.env.SHIPDAY_API_KEY,
+    API_URL: process.env.SHIPDAY_API_URL
   }
 };

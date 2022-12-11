@@ -1,4 +1,4 @@
-module.exports = function makeListOrders(orderAccess){
+module.exports = function makeListOrders(shipdayClient){
   
   return async function listOrders(httpRequest){
     
@@ -6,7 +6,16 @@ module.exports = function makeListOrders(orderAccess){
       'Content-Type': 'application/json'
     };
     try {
-      const orders = await orderAccess.listOrders();
+      // const orders = await orderAccess.listOrders();
+
+      // console.log(shipdayClient);
+
+      const orders = await shipdayClient.orderService.getOrders();
+
+      console.log(orders);
+
+      // console.log(orders);
+
       return {
         headers,
         statusCode: 200,

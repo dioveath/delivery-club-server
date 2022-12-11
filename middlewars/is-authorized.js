@@ -7,7 +7,7 @@ const jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: "https://dev-p3u6u54lrh2rqsz8.uk.auth0.com/.well-known/jwks.json",
+    jwksUri: "https://dev-oxy6vx7ejmssarqs.uk.auth0.com/.well-known/jwks.json",
   }),
   audience: config.AUTH0.API_AUDIENCE,
   issuer: config.AUTH0.ISSUER_BASE_URL,

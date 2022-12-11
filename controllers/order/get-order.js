@@ -8,6 +8,8 @@ module.exports = function makeGetOrder(orderAccess) {
     try {
       const order = await orderAccess.findOrderById(httpRequest.params.id);
 
+      // const orders = shipdayClient.orderService.getOrders();
+
       if(order == null) {
         throw new Error("No Order with id: " + httpRequest.params.id);
       }
