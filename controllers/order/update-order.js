@@ -1,4 +1,8 @@
-module.exports = function makeUpdateUsser(orderAccess){
+const axios = require('axios');
+const config = require('../../config');
+
+
+module.exports = function makeUpdateUsser(shipdayClient){
   
   return async function updateOrder(httpRequest){
     
@@ -7,17 +11,25 @@ module.exports = function makeUpdateUsser(orderAccess){
     };
 
     try {
-      const updatedOrder = await orderAccess.updateOrder(httpRequest.params.id, httpRequest.body);
+      const options = {
+        method: 'PUT',
+        url: `${config.SHIPDAY.API_URL}/order/edit/${httpRequest.params.id}`,
+        headers: {
+          accept: "application/json",
+          Authorization: `Basic ${config.SHIPDAY.API_KEY}`,
+        },
+        data: httpRequest.body
+      };
 
-      if(!updatedOrder)
-        throw new Error('No Order with id: ' + httpRequest.params.id);      
+      const axiosRes = await axios.request(options);
+      const updatedInfo = axiosRes.data;
 
       return {
         headers,
         statusCode: 200,
         body: {
           status: 'success',
-          updatedOrder
+          updatedInfo
         }
       };
 

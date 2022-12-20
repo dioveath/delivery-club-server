@@ -6,15 +6,7 @@ module.exports = function makeListOrders(shipdayClient){
       'Content-Type': 'application/json'
     };
     try {
-      // const orders = await orderAccess.listOrders();
-
-      // console.log(shipdayClient);
-
       const orders = await shipdayClient.orderService.getOrders();
-
-      console.log(orders);
-
-      // console.log(orders);
 
       return {
         headers,
@@ -25,8 +17,6 @@ module.exports = function makeListOrders(shipdayClient){
         }
       };
     } catch (error){
-      // Error logging
-      console.log(error);
       return {
         headers,
         statusCode: 400,

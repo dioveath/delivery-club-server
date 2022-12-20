@@ -1,5 +1,4 @@
-
-module.exports = function makeDeleteOrder(orderAccess){
+module.exports = function makeDeleteOrder(shipdayClient){
 
   return async function deleteOrder(httpRequest){
     
@@ -8,7 +7,9 @@ module.exports = function makeDeleteOrder(orderAccess){
     };
 
     try {
-      const deleteResult = await orderAccess.deleteOrder(httpRequest.params.id);
+
+      const deleteResult = await shipdayClient.orderService.deleteOrder(parseInt(httpRequest.params.id));
+
       return {
         headers,
         statusCode: 200,
@@ -17,9 +18,9 @@ module.exports = function makeDeleteOrder(orderAccess){
           deleted: deleteResult
         }
       };
+
     } catch(error){
       // TODO: error logging
-      console.log(error);
       return {
         headers,
         statusCode: 400, 

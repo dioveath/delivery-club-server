@@ -10,7 +10,7 @@ const isAuthorized = require('../../../middlewars/is-authorized');
 
 router.use('/user', [isAuthorized], userRoute);
 router.use('/menu', menuRoute);
-router.use('/order', [isAuthorized], orderRoute);
+router.use('/order', orderRoute);
 router.use('/payment', [isAuthorized], paymentRoute);
 
 

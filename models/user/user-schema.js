@@ -9,11 +9,13 @@ const userUpdateSchema = Joi.object().keys({
   address: Joi.string(),
   postcode: Joi.string(),
   phone_number: Joi.string().length(10).pattern(/^[0-9]+$/),
+  whatwords: Joi.string(),
+  pin_code: Joi.number(),
   // est_date: Joi.date().min('1-1-1970').max('1-1-2020'), MM-DD-YYYY
   // roles: Joi.array().items(Joi.objectId()),
   // permissions: Joi.array().items(Joi.string()),
   profile_link: Joi.string().allow(''),
-  orders: Joi.array()
+  orders: Joi.array(),
 }).min(1);
 
 const userSchema = userUpdateSchema.options({ presence: 'required'});

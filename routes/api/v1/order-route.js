@@ -1,17 +1,17 @@
-const Router = require('express').Router;
+const Router = require("express").Router;
 const router = Router();
 
-const orderController = require('../../../controllers/order');
-const makeExpressCallback = require('./helpers/express-callback');
 
-const isAuthorized = require('../../../middlewars/is-authorized');
+const orderController = require("../../../controllers/order");
+const makeExpressCallback = require("./helpers/express-callback");
 
-router.get('/', makeExpressCallback(orderController.listOrders));
-router.get('/:id', makeExpressCallback(orderController.getOrder));
+const isAuthorized = require("../../../middlewars/is-authorized");
 
-router.post('/', [isAuthorized], makeExpressCallback(orderController.createOrder));
-router.post('/:id', [isAuthorized], makeExpressCallback(orderController.updateOrder));
+router.get("/", [isAuthorized], makeExpressCallback(orderController.listOrders));
+router.get("/:id", [isAuthorized], makeExpressCallback(orderController.getOrder));
 
-router.delete('/:id', [isAuthorized], makeExpressCallback(orderController.deleteOrder));
+router.post("/", [isAuthorized], makeExpressCallback(orderController.createOrder));
+router.post( "/:id", [isAuthorized], makeExpressCallback(orderController.updateOrder));
+router.delete( "/:id", [isAuthorized], makeExpressCallback(orderController.deleteOrder));
 
 module.exports = router;
