@@ -8,8 +8,10 @@ var buildMakeUser = function(userValidator, bcrypt){
     address,
     postcode,
     phone_number,
+    whatwords,
     profile_link,
-    orders
+    orders,
+    zones
   } = {}) => {
 
     var error = userValidator({
@@ -19,8 +21,10 @@ var buildMakeUser = function(userValidator, bcrypt){
       address,
       postcode,
       phone_number,
+      whatwords,
       profile_link,
-      orders
+      orders,
+      zones
     });
 
     if(error instanceof Object) throw new Error(error.errorList);
@@ -41,9 +45,11 @@ var buildMakeUser = function(userValidator, bcrypt){
       getEmail: () => email,
       getAddress: () => address,
       getPostcode: () => postcode,
-      getPhoneNumber: () => phone_number,      
+      getPhoneNumber: () => phone_number,
+      getWhatWords: () => whatwords,
       getProfileLink: () => profile_link,
-      getOrders: () => orders
+      getOrders: () => orders,
+      getZones: () => zones
     });
     
   };

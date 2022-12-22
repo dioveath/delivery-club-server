@@ -13,10 +13,12 @@ describe('makeUser', ()=> {
       password: "thisiskhatrabahadur",
       email: "doughandcrust@gmail.com",
       address: "Loughbrough",
-      postcode: "LE11",
+      postcode: "LE11 1EU",
       phone_number: "7943221348",
+      whatwords: "three some chicken",
       profile_link: "",
-      orders: []
+      orders: [],
+      zones: []
     };
 
     var input = await makeUser(validUserInfoPayload);
@@ -28,8 +30,10 @@ describe('makeUser', ()=> {
       "getAddress",
       "getPostcode",
       "getPhoneNumber",
+      "getWhatWords",
       "getProfileLink",
-      "getOrders"
+      "getOrders",
+      "getZones"
     ]);
 
   });
@@ -42,8 +46,10 @@ describe('makeUser', ()=> {
       address: "sagaraha",
       postcode: "TW13 4AB",
       phone_number: "9999",
+      whatwords: "green orange pepper",
       profile_link: "",
-      orders: []
+      orders: [],
+      zones: []
     };
 
     var expectedValue = {

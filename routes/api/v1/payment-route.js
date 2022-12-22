@@ -4,7 +4,7 @@ const router = Router();
 const paymentController = require('../../../controllers/payment');
 const makeExpressCallback = require('./helpers/express-callback');
 
-const isAuthorized = require('../../../middlewars/is-authorized');
+const isAuthorized = require('../../../middlewars/is-authenticated');
 
 router.get('/', makeExpressCallback(paymentController.listPayments));
 router.get('/:id', makeExpressCallback(paymentController.getPayment));

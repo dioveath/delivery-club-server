@@ -1,3 +1,5 @@
+const logger = require('../../../../lib/logger');
+
 module.exports = function makeExpressCallback(controller){
   return (req, res) => {
 
@@ -15,6 +17,8 @@ module.exports = function makeExpressCallback(controller){
       },
       user: req.user
     };
+
+    logger.log(req.body);
     
     controller(httpRequest).then(httpResponse => {
       if(httpResponse.headers) {

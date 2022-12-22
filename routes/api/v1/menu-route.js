@@ -4,7 +4,7 @@ const router = Router();
 const menuController = require('../../../controllers/menu');
 const makeExpressCallback = require('./helpers/express-callback');
 
-const isAuthorized = require('../../../middlewars/is-authorized');
+const isAuthorized = require('../../../middlewars/is-authenticated');
 
 router.get('/', makeExpressCallback(menuController.listMenus));
 router.get('/:id', makeExpressCallback(menuController.getMenu));

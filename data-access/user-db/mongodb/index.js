@@ -24,25 +24,21 @@ function findUserById(id){
 
 async function addUser(userInfo){
   // defaults
-  userInfo.roles = [];
   userInfo.profile_link = '';
-  userInfo.roles = [];
-  userInfo.permissions = [];
 
   const user = await makeUser(userInfo);
 
   const newUser = {
-    first_name: user.getFirstName(),
-    last_name: user.getLastName(),
+    name: user.getName(),
     password: user.getPassword(),
     email: user.getEmail(),
-    phone_number: user.getPhoneNumber(),
     address: user.getAddress(),
     postcode: user.getPostcode(),
-    dob: user.getDOB(),
-    roles: user.getRoles(),
-    permissions: user.getPermissions(),
+    phone_number: user.getPhoneNumber(),
+    whatwords: user.getWhatWords(),
     profile_link: user.getProfileLink(),
+    orders: user.getOrders(),
+    zones: user.getZones(),
     phone_verified: false,
     email_verified: false,
   };

@@ -6,6 +6,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const logger = require('./lib/logger');
+
+const passport = require('passport');
 
 const app = express();
 
@@ -15,8 +18,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
+require('./config/passport')(passport);
+app.use(passport.initialize());
+
 const APIRoute = require('./routes/api/v1');
-// const authRoute = require('./routes/auth/index');
+const authRoute = require('./routes/auth');
 
 const authConfig = {
   authRequired: false,
@@ -50,8 +56,10 @@ app.get('/profile', requiresAuth(), (req, res) => {
   });
 });
 
-// API Routes
+// Routes
 app.use('/api/v1', APIRoute);
+app.use('/auth', authRoute);
+
 
 app.use(express.static(path.join(__dirname, "client", "build")));
 
@@ -60,6 +68,6 @@ app.get('/', (_req, res) => {
 });
 
 app.listen(config.PORT, () => {
-  console.log(`listening to clients @localhost:${config.PORT}`);
+  logger.info(`listening to clients @localhost:${config.PORT}`);
 });
 

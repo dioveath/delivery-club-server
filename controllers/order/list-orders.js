@@ -5,6 +5,7 @@ module.exports = function makeListOrders(shipdayClient){
     const headers = {
       'Content-Type': 'application/json'
     };
+
     try {
       const orders = await shipdayClient.orderService.getOrders();
 
@@ -16,6 +17,7 @@ module.exports = function makeListOrders(shipdayClient){
           orders
         }
       };
+
     } catch (error){
       return {
         headers,
@@ -25,7 +27,6 @@ module.exports = function makeListOrders(shipdayClient){
           errorList: error.message.split(',')
         }
       };
-
     };
 
   };

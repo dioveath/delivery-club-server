@@ -6,12 +6,12 @@ const menuRoute = require('./menu-route');
 const orderRoute = require('./order-route');
 const paymentRoute = require('./payment-route');
 
-const isAuthorized = require('../../../middlewars/is-authorized');
+const isAuthenticated = require('../../../middlewars/is-authenticated');
 
-router.use('/user', [isAuthorized], userRoute);
-router.use('/menu', menuRoute);
+router.use('/user', [isAuthenticated], userRoute);
+// router.use('/menu', menuRoute);
 router.use('/order', orderRoute);
-router.use('/payment', [isAuthorized], paymentRoute);
+router.use('/payment', [isAuthenticated], paymentRoute);
 
 
 module.exports = router;

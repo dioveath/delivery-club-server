@@ -1,4 +1,5 @@
 // throws appropriate business frontend error for mongoose error and mongoose-unique-validator errors
+const logger = require('./../lib/logger');
 
 module.exports = (error) => {
   if (error.name == "ValidationError") {
@@ -6,7 +7,6 @@ module.exports = (error) => {
 
     let props = Object.keys(error.errors);
     let messages = [];
-    console.log(props);
 
     for (let prop of props) {
       // error.errors.message gives us: Error, 'gaming_name' to be unique
@@ -16,12 +16,15 @@ module.exports = (error) => {
         .substring(1);
       messages.push(message.charAt(0).toUpperCase() + message.slice(1));
     }
-
+    
+    logger.error(messages.join(","));
     throw new Error(messages.join(","));
   } else if (error.name == "CastError") {
-    throw new Error(
-      `Casting error with ${error.path} of value type '${error.valueType}' to type of '${error.kind}'`
-    );
+
+    const message = `Casting error with ${error.path} of value type '${error.valueType}' to type of '${error.kind}'`;
+    logger.error(message);
+    throw new Error(message);
+
   } else if (error.code === 11000) {
     // duplicates in db:
     // NOTE: this will never be reached, above unique validation will catch first, here is for reference only
@@ -34,13 +37,17 @@ module.exports = (error) => {
       );
     }
 
+    logger.error(messages.join(","));    
     throw new Error(messages.join(","));
   } else if (error.code == 11011 || error.name == "CastError") {
-    throw new Error(`Resource not found with "id : '${error._id}'"`);
+    const message = `Resource not found with "id : '${error._id}'"`;
+    logger.error(message);
+    throw new Error();
   } else if (error.name === "CastError") {
+    logger.error(error.reason);
     throw new Error(error.reason);    
   } else {
-    console.log(error);
+    logger.error(error);
     throw new Error("Error in database!");
   }
 };

@@ -17,5 +17,10 @@ module.exports = {
   SHIPDAY: {
     API_KEY: process.env.SHIPDAY_API_KEY,
     API_URL: process.env.SHIPDAY_API_URL
-  }
+  },
+
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_ISSUER: process.env.JWT_ISSUER,
+  JWT_AUDIENCE: process.env.JWT_AUDIENCE
+
 };

@@ -4,12 +4,14 @@ const router = Router();
 const userController = require('../../../controllers/user');
 const makeExpressCallback = require('./helpers/express-callback');
 
-router.get('/', makeExpressCallback(userController.listUsers));
-router.get('/:id', makeExpressCallback(userController.getUser));
+const isAuthenticated = require('../../../middlewars/is-authenticated');
 
-router.post('/', makeExpressCallback(userController.createUser));
-router.post('/:id', makeExpressCallback(userController.updateUser));
+router.get('/', [isAuthenticated], makeExpressCallback(userController.listUsers));
+router.get('/:id', [isAuthenticated], makeExpressCallback(userController.getUser));
 
-router.delete('/:id', makeExpressCallback(userController.deleteUser));
+router.post('/', [isAuthenticated], makeExpressCallback(userController.createUser));
+router.post('/:id', [isAuthenticated], makeExpressCallback(userController.updateUser));
+
+router.delete('/:id', [isAuthenticated], makeExpressCallback(userController.deleteUser));
 
 module.exports = router;
