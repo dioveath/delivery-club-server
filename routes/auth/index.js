@@ -11,7 +11,7 @@ const authRouter = new Router();
 
 authRouter.post("/login", async (req, res) => {
   if (!req.body.email || !req.body.password)
-    return res.send({
+    return res.status(406).send({
       status: "fail",
       errorList: ["Please give proper credentials."],
     });
@@ -21,7 +21,7 @@ authRouter.post("/login", async (req, res) => {
   if (user) {
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) {
-      return res.send({
+      return res.status(406).send({
         status: "fail",
         errorList: ["User or Password don't match!"],
       });
@@ -31,11 +31,11 @@ authRouter.post("/login", async (req, res) => {
     return res.send({
       status: "success",
       userId: user.id,
-      accessToken: accessToken,
+      accessToken: accessToken
     });
   }
 
-  return res.send({
+  return res.status(406).send({
     status: "fail",
     errorList: ["User not found with email, " + req.body.email],
   });
@@ -54,7 +54,7 @@ authRouter.post("/register", async (req, res) => {
       accessToken: accessToken,
     });
   } catch (error) {
-    return res.send({
+    return res.status(406).send({
       status: "fail",
       errorList: error.message.split(","),
     });

@@ -7,6 +7,7 @@ const serialize = require('./serializer');
 const makeUser = require('../../../models/user/index').makeUser;
 const makeUpdateUser = require('../../../models/user/index').makeUpdateUser;
 const errorFormatter = require('../../errorFormatter');
+const logger = require('../../../lib/logger');
 
 
 function listUsers(){
@@ -63,6 +64,16 @@ async function updateUser(id, updateUserInfo){
   return User.findByIdAndUpdate(id, updateUserInfo, { new: true }).then(serialize).catch(errorFormatter);
 }
 
+async function addOrder(id, orderId){
+  if(!id || !orderId) throw new Error("You must supply id!");
+  return User.findByIdAndUpdate(id, {$push: { orders: orderId }}, { new: true }).then(serialize).catch(errorFormatter);
+}
+
+async function removeOrder(id, orderId){
+  if(!id || !orderId) throw new Error("You must supply id!");
+  return User.findByIdAndUpdate(id, {$pull: { orders: orderId }}, { new: true }).then(serialize).catch(errorFormatter);
+}
+
 
 function deleteUser(id){
   return User.findByIdAndDelete(id).then(res => {
@@ -90,7 +101,9 @@ module.exports = {
   findUserBy,
   findUserById, 
   addUser,
-  updateUser, 
+  updateUser,
+  addOrder,
+  removeOrder,
   deleteUser, 
   dropUsers
 };

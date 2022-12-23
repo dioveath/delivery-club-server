@@ -1,3 +1,5 @@
+const userAccess = require('../../data-access/user-db/index');
+
 module.exports = function makeDeleteOrder(shipdayClient){
 
   return async function deleteOrder(httpRequest){
@@ -7,7 +9,6 @@ module.exports = function makeDeleteOrder(shipdayClient){
     };
 
     try {
-
       const deleteResult = await shipdayClient.orderService.deleteOrder(parseInt(httpRequest.params.id));
 
       return {

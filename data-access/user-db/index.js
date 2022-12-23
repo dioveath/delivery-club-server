@@ -6,6 +6,8 @@ const { listUsers,
         findUserById,
         addUser,
         updateUser,
+        addOrder,
+        removeOrder,
         deleteUser,
         dropUsers
       } = require('./mongodb'); // Gateway to actual database, mongodb here
@@ -16,6 +18,8 @@ module.exports = {
   findUserById, 
   addUser,
   updateUser,
+  addOrder,
+  removeOrder,
   deleteUser, 
   dropUsers,
 };

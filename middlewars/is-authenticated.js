@@ -10,6 +10,7 @@ const config = require("../config");
 // module.exports = checkJwt;
 
 const passport = require('passport');
+const logger = require("../lib/logger");
 
 module.exports = (req, res, next) => {
   return passport.authenticate('jwt', { session: false }, (err, user, _info) => {
@@ -29,6 +30,7 @@ module.exports = (req, res, next) => {
     }
 
     req.user = user;
+
     return next();
 
   })(req, res, next);
