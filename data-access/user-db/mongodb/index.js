@@ -26,6 +26,9 @@ function findUserById(id){
 async function addUser(userInfo){
   // defaults
   userInfo.profile_link = '';
+  userInfo.orders = [];
+  userInfo.zones = [];
+  userInfo.whatwords = 'default default default';
 
   const user = await makeUser(userInfo);
 

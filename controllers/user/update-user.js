@@ -12,8 +12,6 @@ module.exports = function makeUpdateUsser(userAccess){
       if(!updatedUser)
         throw new Error('No User with id: ' + httpRequest.params.id);        
 
-      console.log("Shouldn't be here!");
-
       return {
         headers,
         statusCode: 200,

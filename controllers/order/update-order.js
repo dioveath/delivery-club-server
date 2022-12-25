@@ -11,6 +11,7 @@ module.exports = function makeUpdateUsser(shipdayClient){
     };
 
     try {
+
       const options = {
         method: 'PUT',
         url: `${config.SHIPDAY.API_URL}/order/edit/${httpRequest.params.id}`,
@@ -22,6 +23,9 @@ module.exports = function makeUpdateUsser(shipdayClient){
       };
 
       const axiosRes = await axios.request(options);
+      if(!axiosRes.data.success)
+        throw new Error(axiosRes.data.response);
+
       const updatedInfo = axiosRes.data;
 
       return {

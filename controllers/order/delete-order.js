@@ -1,4 +1,5 @@
 const userAccess = require('../../data-access/user-db/index');
+const logger = require('../../lib/logger');
 
 module.exports = function makeDeleteOrder(shipdayClient){
 
@@ -10,7 +11,7 @@ module.exports = function makeDeleteOrder(shipdayClient){
 
     try {
       const deleteResult = await shipdayClient.orderService.deleteOrder(parseInt(httpRequest.params.id));
-
+ 
       return {
         headers,
         statusCode: 200,
@@ -22,6 +23,7 @@ module.exports = function makeDeleteOrder(shipdayClient){
 
     } catch(error){
       // TODO: error logging
+      logger.debug(error.message);
       return {
         headers,
         statusCode: 400, 

@@ -1,8 +1,10 @@
 const axios = require("axios");
 const config = require("../../config");
 
+const { customAlphabet } = require('nanoid');
+const nanoid = customAlphabet('1234567890', 8);
+
 const userAccess = require('../../data-access/user-db/index');
-const logger = require("../../lib/logger");
 
 module.exports = function makeCreateOrder(shipdayClient) {
   return async function createOrder(httpRequest) {
@@ -11,8 +13,8 @@ module.exports = function makeCreateOrder(shipdayClient) {
     };
 
     const reqData = httpRequest.body;
-    const user = await userAccess.findUserById(httpRequest.user.sub);    
-    const orderNumber = user.name[0].toLowerCase() + 'dv000' + user.orders.length;
+    const user = await userAccess.findUserById(httpRequest.user.sub);
+    const orderNumber = user.name.split(' ')[0].substring(0, 2).toUpperCase() + '-' + nanoid(4);
 
     const curatedOrder = {
       orderNumber: orderNumber,
@@ -24,6 +26,7 @@ module.exports = function makeCreateOrder(shipdayClient) {
       restaurantAddress: user.address,
       restaurantPhoneNumber: user.phone_number,
       expectedPickupTime: reqData.expectedPickupTime,
+      
     };
 
     try {
